@@ -46,7 +46,7 @@ export default function TextForm(props) {
                 <button className="btn btn-success mx-1" onClick={handleloclick}>
                     Convert to lowercase
                 </button>  
-               <button className="btn btn-primary mx-1"  onClick={handleclear}> 
+               <button className="btn btn-success mx-1"  onClick={handleclear}> 
                       clear text
                </button>
             </div>
