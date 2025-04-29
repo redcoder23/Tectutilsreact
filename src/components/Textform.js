@@ -15,10 +15,32 @@ export default function TextForm(props) {
         settext(event.target.value);
 
     }
-    const cnt = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;  
-    const handleclear=()=>{
+    const cnt = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+    const handleclear = () => {
         settext('');
     }
+    const handlealternating = (event) => {
+        let newtext = "";
+        for (var i = 0; i < text.length; i++) {
+            if (!(i & 1))
+                newtext += text[i].toUpperCase();
+            else newtext += text[i].toLowerCase();
+        }
+        settext(newtext);
+    }
+
+    const handleclipboard = async () => {
+        try {
+            console.log('trying to copy'); 
+            await navigator.clipboard.writeText(text); 
+            console.log('copy successful'); 
+            alert('copied!');
+        }
+        catch (err) {
+            console.error('copy failed', err);
+        }
+    };
+
     // text="new text" ; wrong way to change the state; 
     // settext("new text");  
     /* cant keep settext here as it causes infinite loop here because  settext shouldnt be inside the react   
@@ -45,10 +67,16 @@ export default function TextForm(props) {
                 </button>
                 <button className="btn btn-success mx-1" onClick={handleloclick}>
                     Convert to lowercase
-                </button>  
-               <button className="btn btn-success mx-1"  onClick={handleclear}> 
-                      clear text
-               </button>
+                </button>
+                <button className="btn btn-success mx-1" onClick={handleclear}>
+                    clear text
+                </button>
+                <button className='btn btn-primary mx-1' onClick={handlealternating}>
+                    aLtErNaTe CaSe
+                </button>
+                <button className="btn btn-info mx-1" onClick={handleclipboard}>
+                    copy to clipboard
+                </button>
             </div>
             <div className="container my-2">
                 <h2>Your text words</h2>
